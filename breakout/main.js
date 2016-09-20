@@ -68,9 +68,17 @@ var mainState = {
         
         //Move the paddle left/right when an arrow key is pressed
         if (this.left.isDown) {
-            this.paddle.body.velocity.x = -300;
+            if(this.paddle.x!=0)
+            {
+                this.paddle.body.velocity.x = -300;   
+            }
+            //this.paddle.body.velocity.x = -300;
         } else if (this.right.isDown) {
-            this.paddle.body.velocity.x = 300;
+            if(this.paddle.x!=400)
+            {
+                this.paddle.body.velocity.x = 300;
+            }
+            //this.paddle.body.velocity.x = 300;
         } else {
             // Stop the paddle when no key is pressed
             this.paddle.body.velocity.x = 0;
