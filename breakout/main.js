@@ -5,7 +5,9 @@ var mainState = {
         //Here we preload the assets
         
         //Load paddle image
-        game.load.image('paddle','assets/block.png');
+        game.load.image('paddle','assets/paddle.png');
+        game.load.image('ball','assets/ball.png');
+        game.load.image('brick','assets/brick.png');
     },
 
     create : function()
@@ -38,7 +40,7 @@ var mainState = {
         for (var i = 0; i < 5; i++) {
             for ( var j = 0; j < 5; j++) {
                 //Create the brick at the correct position
-                var brick = game.add.sprint(55 + i * 60, 55 * j + 35, 'paddle' );
+                var brick = game.add.sprite(55 + i * 60, 55 * j + 35, 'brick' );
 
                 //Make sure the brick won't move when the ball hits it
                 brick.body.immovable = true;
@@ -49,7 +51,7 @@ var mainState = {
         }
 
         //Add the ball
-        this.ball = game.add.sprint(200, 300, 'paddle');
+        this.ball = game.add.sprite(200, 300, 'ball');
 
         //Give the ball some initial velocity
         this.ball.body.velocity.x = 200;
@@ -75,10 +77,15 @@ var mainState = {
         }
 
         //Add collisions between the paddle and the ball
-        game.physics.arcade.collide(this.paddle, this.paddle);
+        game.physics.arcade.collide(this.paddle, this.ball);
 
         //Call the 'hit' function when the ball hits a brick
         game.physics.arcade.collide(this.ball, this.bricks, this.hit, null, this);
+    },
+
+    hit : function(ball, brick)
+    {
+        brick.kill();
     }
 };
 
